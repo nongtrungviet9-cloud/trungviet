@@ -1,0 +1,218 @@
+
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Trungvietshopacc</title>
+
+<style>
+
+body{
+background:#0f0f0f;
+color:white;
+font-family:Arial;
+text-align:center;
+}
+
+header{
+background:red;
+padding:20px;
+font-size:24px;
+}
+
+.menu{
+margin:15px;
+}
+
+.menu a{
+color:white;
+margin:10px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.box{
+background:#1e1e1e;
+margin:20px;
+padding:20px;
+border-radius:10px;
+}
+
+button{
+background:red;
+color:white;
+padding:10px 20px;
+border:none;
+border-radius:5px;
+}
+
+input{
+padding:10px;
+margin:5px;
+}
+
+footer{
+background:#111;
+padding:20px;
+margin-top:40px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+TRUNGVIETSHOPACC  
+<p>Shop Acc Free Fire Uy Tín</p>
+
+</header>
+
+<div class="menu">
+
+<a href="#">Trang chủ</a>
+
+<a href="#random">Random Acc</a>
+
+<a href="#nap">Nạp tiền</a>
+
+<a href="#lienhe">Liên hệ</a>
+
+</div>
+
+<div class="box">
+
+<h2>Acc Free Fire VIP</h2>
+
+<p>Rank cao - nhiều skin súng</p>
+
+<p>Giá: 100.000đ</p>
+
+<button onclick="buy()">Mua ngay</button>
+
+</div>
+
+<div class="box">
+
+<h2>Acc Free Fire Pro</h2>
+
+<p>Nhiều đồ hiếm + kim cương</p>
+
+<p>Giá: 200.000đ</p>
+
+<button onclick="buy()">Mua ngay</button>
+
+</div>
+
+<div class="box" id="random">
+
+<h2>🎲 Random Acc Free Fire</h2>
+
+<p>Random Acc 20.000đ</p>
+
+<button onclick="randomAcc()">Random ngay</button>
+
+<p id="result"></p>
+
+</div>
+
+<div class="box" id="nap">
+
+<h2>💳 Nạp tiền</h2>
+
+<h3>Nạp thẻ điện thoại</h3>
+
+<input id="card" placeholder="Nhập mã thẻ"><br>
+
+<input id="seri" placeholder="Nhập seri"><br>
+
+<select>
+
+<option>Viettel</option>
+
+<option>Mobifone</option>
+
+<option>Vinaphone</option>
+
+</select>
+
+<br><br>
+
+<button onclick="napthe()">Gửi thẻ</button>
+
+<p id="napstatus"></p>
+
+<h3>Chuyển khoản ngân hàng</h3>
+
+<p>MB BANK</p>
+
+<p>Số TK: 0362378548/p>
+
+<p>Chủ TK: NONG TRUNG VIET</p>
+
+</div>
+
+<footer id="lienhe">
+
+<h3>Liên hệ hỗ trợ</h3>
+
+<p>Zalo: 0362378548</p>
+
+<p>Facebook: Trungviet</p>
+
+<p>Shop Acc Free Fire Uy Tín</p>
+
+</footer>
+
+<script>
+
+function buy(){
+
+alert("Vui lòng nạp tiền trước khi mua acc.");
+
+}
+
+var accounts=[
+
+"TK: vipff123 | MK: 123456",
+
+"TK: proskin | MK: 456789",
+
+"TK: rankmaster | MK: 999999",
+
+"TK: skinfull | MK: 888888"
+
+];
+
+function randomAcc(){
+
+var r=Math.floor(Math.random()*accounts.length);
+
+document.getElementById("result").innerHTML=
+
+"Acc của bạn: "+accounts[r];
+
+}
+
+function napthe(){
+
+var card=document.getElementById("card").value;
+
+var seri=document.getElementById("seri").value;
+
+if(card=="" || seri==""){
+
+document.getElementById("napstatus").innerHTML="Vui lòng nhập mã thẻ";
+
+}else{
+
+document.getElementById("napstatus").innerHTML="Gửi thẻ thành công, admin sẽ kiểm tra.";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
