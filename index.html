@@ -1,0 +1,42 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Mini Game Coin Ảo</title>
+<style>
+body{font-family:sans-serif;text-align:center;background:#222;color:white}
+button{padding:10px 20px;margin:10px;font-size:18px}
+</style>
+</head>
+
+<body>
+
+<h1>Mini Game Tài Xỉu</h1>
+<p>Coin: <span id="coin">1000</span></p>
+
+<button onclick="play('tai')">Tài</button>
+<button onclick="play('xiu')">Xỉu</button>
+
+<p id="kq"></p>
+
+<script>
+let coin = 1000;
+
+function play(chon){
+let xucxac = Math.floor(Math.random()*6)+1 + Math.floor(Math.random()*6)+1;
+
+let ketqua = xucxac >=7 ? "tai":"xiu";
+
+if(chon==ketqua){
+coin +=100;
+document.getElementById("kq").innerText="Bạn thắng +100 coin";
+}else{
+coin -=100;
+document.getElementById("kq").innerText="Bạn thua -100 coin";
+}
+
+document.getElementById("coin").innerText=coin;
+}
+</script>
+
+</body>
+</html>
