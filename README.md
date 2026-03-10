@@ -1,0 +1,185 @@
+<!Xin Chào >
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Number 2D</title>
+
+<style>
+
+body{
+margin:0;
+background:white;
+overflow:hidden;
+font-family:Arial;
+}
+
+canvas{
+display:block;
+margin:auto;
+background:white;
+border:2px solid black;
+}
+
+.controls{
+position:fixed;
+bottom:25px;
+width:100%;
+display:flex;
+justify-content:space-between;
+padding:0 50px;
+}
+
+.btn{
+width:75px;
+height:75px;
+background:white;
+color:black;
+font-size:35px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 0 10px #888;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="game" width="400" height="600"></canvas>
+
+<div class="controls">
+<div class="btn" id="left">⬅</div>
+<div class="btn" id="right">➡</div>
+</div>
+
+<script>
+
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+let player={
+x:200,
+y:520,
+speed:6
+};
+
+let obstacles=[];
+let score=0;
+let level=1;
+
+let moveLeft=false;
+let moveRight=false;
+
+document.getElementById("left").ontouchstart=()=>moveLeft=true;
+document.getElementById("left").ontouchend=()=>moveLeft=false;
+
+document.getElementById("right").ontouchstart=()=>moveRight=true;
+document.getElementById("right").ontouchend=()=>moveRight=false;
+
+function spawnObstacle(){
+
+obstacles.push({
+x:Math.random()*360,
+y:-20,
+size:20,
+speed:3+score*0.2
+});
+
+}
+
+setInterval(spawnObstacle,800);
+
+function drawCat(x,y){
+
+ctx.fillStyle="gray";
+ctx.beginPath();
+ctx.arc(x,y,22,0,Math.PI*2);
+ctx.fill();
+
+ctx.beginPath();
+ctx.moveTo(x-15,y-15);
+ctx.lineTo(x-5,y-35);
+ctx.lineTo(x,y-15);
+ctx.fill();
+
+ctx.beginPath();
+ctx.moveTo(x+15,y-15);
+ctx.lineTo(x+5,y-35);
+ctx.lineTo(x,y-15);
+ctx.fill();
+
+ctx.fillStyle="black";
+ctx.beginPath();
+ctx.arc(x-7,y-5,4,0,Math.PI*2);
+ctx.arc(x+7,y-5,4,0,Math.PI*2);
+ctx.fill();
+
+ctx.fillStyle="pink";
+ctx.beginPath();
+ctx.arc(x,y+5,3,0,Math.PI);
+ctx.fill();
+
+}
+
+function update(){
+
+ctx.clearRect(0,0,400,600);
+
+if(moveLeft) player.x-=player.speed;
+if(moveRight) player.x+=player.speed;
+
+if(player.x<20) player.x=20;
+if(player.x>380) player.x=380;
+
+drawCat(player.x,player.y);
+
+ctx.fillStyle="red";
+
+for(let i=0;i<obstacles.length;i++){
+
+let o=obstacles[i];
+
+o.y+=o.speed;
+
+ctx.fillRect(o.x,o.y,o.size,o.size);
+
+if(
+o.x < player.x+20 &&
+o.x+o.size > player.x-20 &&
+o.y < player.y+20 &&
+o.y+o.size > player.y-20
+){
+
+alert("Game Over\nScore: "+score);
+location.reload();
+
+}
+
+if(o.y>600){
+
+score++;
+obstacles.splice(i,1);
+
+}
+
+}
+
+level = Math.floor(score/5)+1;
+
+ctx.fillStyle="black";
+ctx.font="20px Arial";
+ctx.fillText("Score: "+score,10,30);
+ctx.fillText("Level: "+level,10,55);
+
+requestAnimationFrame(update);
+
+}
+
+update();
+
+</script>
+
+</body>
+</html> 
