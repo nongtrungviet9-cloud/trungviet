@@ -1,0 +1,109 @@
+<!trungviet!>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Number Game 2D</title>
+<style>
+body{
+margin:0;
+overflow:hidden;
+background:black;
+}
+canvas{
+display:block;
+margin:auto;
+background:#111;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="game" width="400" height="600"></canvas>
+
+<script>
+
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+let player = {
+x:180,
+y:520,
+width:40,
+height:40,
+speed:6
+};
+
+let obstacles = [];
+let score = 0;
+
+document.addEventListener("keydown", move);
+
+function move(e){
+if(e.key === "ArrowLeft"){
+player.x -= player.speed;
+}
+if(e.key === "ArrowRight"){
+player.x += player.speed;
+}
+}
+
+function spawnObstacle(){
+obstacles.push({
+x: Math.random()*360,
+y: -20,
+size: 20,
+speed: 3
+});
+}
+
+setInterval(spawnObstacle,1000);
+
+function update(){
+
+ctx.clearRect(0,0,400,600);
+
+ctx.fillStyle="lime";
+ctx.fillRect(player.x,player.y,player.width,player.height);
+
+ctx.fillStyle="red";
+
+for(let i=0;i<obstacles.length;i++){
+
+let o = obstacles[i];
+
+o.y += o.speed;
+
+ctx.fillRect(o.x,o.y,o.size,o.size);
+
+if(
+o.x < player.x + player.width &&
+o.x + o.size > player.x &&
+o.y < player.y + player.height &&
+o.y + o.size > player.y
+){
+alert("Game Over\nĐiểm: "+score);
+location.reload();
+}
+
+if(o.y > 600){
+score++;
+obstacles.splice(i,1);
+}
+
+}
+
+ctx.fillStyle="white";
+ctx.font="20px Arial";
+ctx.fillText("Score: "+score,10,30);
+
+requestAnimationFrame(update);
+
+}
+
+update();
+
+</script>
+
+</body>
+</html>
